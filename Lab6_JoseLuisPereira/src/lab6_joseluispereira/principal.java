@@ -63,7 +63,7 @@ public class principal extends javax.swing.JFrame {
         jLabel23 = new javax.swing.JLabel();
         pe_duracion = new javax.swing.JTextField();
         jLabel24 = new javax.swing.JLabel();
-        jSpinner1 = new javax.swing.JSpinner();
+        pe_rating = new javax.swing.JSpinner();
         jLabel25 = new javax.swing.JLabel();
         pe_comments = new javax.swing.JTextField();
         jLabel26 = new javax.swing.JLabel();
@@ -255,7 +255,7 @@ public class principal extends javax.swing.JFrame {
 
         jLabel24.setText("Rating");
 
-        jSpinner1.setModel(new javax.swing.SpinnerNumberModel(2, 0, 5, 1));
+        pe_rating.setModel(new javax.swing.SpinnerNumberModel(2, 0, 5, 1));
 
         jLabel25.setText("Añadir comentarios");
 
@@ -268,6 +268,11 @@ public class principal extends javax.swing.JFrame {
         jLabel29.setText("utilizando \",\"");
 
         jButton2.setText("Guardar");
+        jButton2.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton2MouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout admin_peliculasLayout = new javax.swing.GroupLayout(admin_peliculas.getContentPane());
         admin_peliculas.getContentPane().setLayout(admin_peliculasLayout);
@@ -314,7 +319,7 @@ public class principal extends javax.swing.JFrame {
                                     .addComponent(jLabel24))
                                 .addGap(18, 18, 18)
                                 .addGroup(admin_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                    .addComponent(pe_rating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                                     .addComponent(pe_duracion, javax.swing.GroupLayout.PREFERRED_SIZE, 169, javax.swing.GroupLayout.PREFERRED_SIZE)))
                             .addGroup(admin_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(admin_peliculasLayout.createSequentialGroup()
@@ -371,7 +376,7 @@ public class principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(admin_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel24)
-                    .addComponent(jSpinner1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(pe_rating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(admin_peliculasLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel25)
@@ -576,6 +581,11 @@ public class principal extends javax.swing.JFrame {
         jLabel3.setText("Iniciar Sesion");
 
         jButton1.setText("Entrar");
+        jButton1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton1MouseClicked(evt);
+            }
+        });
 
         jLabel4.setText("No tienes cuenta?");
 
@@ -650,7 +660,7 @@ public class principal extends javax.swing.JFrame {
 
     private void re_guardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_re_guardarMouseClicked
         //String correo, String contra, String fecha, ArrayList<String> peliculas, ArrayList<String> series_fav, int tarjeta
-        admin_users ap = new admin_users("./salidas.txt");
+        admin_users ap = new admin_users("./Usuarios.txt");
         ArrayList<String> pels= new ArrayList();
         ArrayList<String> series= new ArrayList();
         String tokens[]=re_pelix.getText().split(",");
@@ -664,6 +674,42 @@ public class principal extends javax.swing.JFrame {
         }
         usuario p = new usuario(re_correo.getText(),re_contra.getText(),re_fecha.getText(),pels,series,ents);
     }//GEN-LAST:event_re_guardarMouseClicked
+
+    private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
+// String id, String nombre, String categoria, ArrayList<String> idiomas, ArrayList<String> subtitulos, String hora, int rating, ArrayList<String> comentarios, String productora, String director, ArrayList<String> actores)
+        admin_peliculas aps = new admin_peliculas("./Peliculas.txt");
+        ArrayList<String> idiomas= new ArrayList();
+        ArrayList<String> subtitulos= new ArrayList();
+        ArrayList<String> comentarios= new ArrayList();
+        ArrayList<String> actores= new ArrayList();
+        String tokens[]=pe_idiomas.getText().split(",");
+        String tokens2[]=pe_subt.getText().split(",");
+        String tokens3[]=pe_comments.getText().split(",");  
+        String tokens4[]=pe_actores.getText().split(","); 
+        int p=(Integer)pe_rating.getValue();
+       // String olabb = Integer.toString(p);
+        Integer ents = Integer.valueOf(re_tarjeta.getText());
+        for (int i = 0; i < tokens.length; i++) {
+            idiomas.add(tokens[i]);
+        }
+        for (int i = 0; i < tokens2.length; i++) {
+            subtitulos.add(tokens2[i]);
+        }
+        for (int i = 0; i < tokens3.length; i++) {
+            comentarios.add(tokens3[i]);
+        }
+         for (int i = 0; i < tokens4.length; i++) {
+            actores.add(tokens4[i]);
+        }
+        peliculas p2 = new peliculas(pe_id.getText(),pe_nombre.getText(),pe_categoria.getText(),idiomas,subtitulos,pe_duracion.getText(),p,comentarios,pe_productor.getText(),pe_director.getText(),actores);
+        
+        
+        
+    }//GEN-LAST:event_jButton1MouseClicked
+
+    private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jButton2MouseClicked
 
     /**
      * @param args the command line arguments
@@ -751,7 +797,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JSpinner jSpinner3;
     private javax.swing.JTextField pe_actores;
@@ -763,6 +808,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JTextField pe_idiomas;
     private javax.swing.JTextField pe_nombre;
     private javax.swing.JTextField pe_productor;
+    private javax.swing.JSpinner pe_rating;
     private javax.swing.JTextField pe_subt;
     private javax.swing.JTextField re_contra;
     private javax.swing.JTextField re_correo;

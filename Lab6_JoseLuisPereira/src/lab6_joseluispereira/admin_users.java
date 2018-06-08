@@ -17,10 +17,14 @@ public class admin_users {
     private ArrayList<usuario> listaPersonas = new ArrayList();
     private File archivo = null;
 
-    public admin_users() {
+    public admin_users(String path) {
+        archivo = new File(path);
     }
 
-       
+    public ArrayList<usuario> getListaPersonas() {
+        return listaPersonas;
+    }
+
     public void setListaPersonas(ArrayList<usuario> listaPersonas) {
         this.listaPersonas = listaPersonas;
     }
@@ -33,6 +37,7 @@ public class admin_users {
         this.archivo = archivo;
     }
 
+       
    
     public void setpersonas(usuario p) {
         this.listaPersonas.add(p);
@@ -41,16 +46,19 @@ public class admin_users {
 
     public void escribirarchivo()
             throws IOException {
+        //String correo, String contra, String fecha, ArrayList<String> peliculas, ArrayList<String> series_fav, int tarjeta
         FileWriter fw = null;
         BufferedWriter bw = null;
         try {
             fw = new FileWriter(archivo, false);
             bw = new BufferedWriter(fw);
             for (usuario t : listaPersonas) {
-                bw.write(t. + ";");
-                bw.write(t.getNombre() + ";");
-                bw.write(t.getEdad() + ";");
-                
+                bw.write(t.getCorreo() + ";");
+                bw.write(t.getContra() + ";");
+                bw.write(t.getFecha() + ";");
+                bw.write(t.getPeliculas() + ";");
+                bw.write(t.getSeries_fav() + ";");
+                bw.write(t.getTarjeta() + ";");      
             }
             bw.flush();
         } catch (Exception ex) {
@@ -67,24 +75,34 @@ public class admin_users {
                 sc = new Scanner(archivo);
                 sc.useDelimiter(";");
                 while (sc.hasNext()) {
-                    listaPersonas.add(new personas(sc.nextInt(), sc.next(), sc.nextInt()));
-                    int c, e;
-                    String n;
-                    ArrayList<hobbie> temp = new ArrayList();
-                    c = sc.nextInt();
-                    n = sc.next();
+                    //String correo, String contra, String fecha, ArrayList<String> peliculas, ArrayList<String> series_fav, int tarjeta ;
+                    String correo,contra,fecha,peliculas;
+                    int tar;
+                    correo=sc.next();
+                    contra=sc.next();
+                    fecha=sc.next();
+                    ArrayList<String> pelix = new ArrayList();
+                    ArrayList<String> series=new ArrayList();
                     Scanner s2 = new Scanner(sc.next());
-                    s2.useDelimiter(",");
+                    s2.useDelimiter(",");                    
                     while (s2.hasNext()) {
-                        temp.add(new hobbie(s2.nextInt(), s2.next()));
-                    }//fin while
-                    e = sc.nextInt();
-                    listaPersonas.add(new personas(c, n, e));
-                    listaPersonas.get(listaPersonas.size() - 1).setHobbies(temp);
+                        pelix.add(s2.next());
+                    }
+                    peliculas=sc.next();
+                    Scanner scanner3 = new Scanner(sc.next());
+                    scanner3.useDelimiter(",");
+                    while (scanner3.hasNext()) {
+                        series.add(scanner3.next());
+                    }
+                    tar=sc.nextInt();
+                    listaPersonas.add(new usuario(correo, contra, fecha,pelix,series,tar));
+                    listaPersonas.get(listaPersonas.size() - 1).setPeliculas(pelix);
+                    listaPersonas.get(listaPersonas.size() - 1).setSeries_fav(series);
                 }
             } catch (Exception e) {
             }
             sc.close();
         }
     }
+    
 }

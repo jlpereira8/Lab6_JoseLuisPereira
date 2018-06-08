@@ -19,7 +19,8 @@ public class usuario {
     private ArrayList<String> series_fav;
     private int tarjeta;
 
-   
+    public usuario() {
+    }
 
     public usuario(String correo, String contra, String fecha, ArrayList<String> peliculas, ArrayList<String> series_fav, int tarjeta) {
         this.correo = correo;

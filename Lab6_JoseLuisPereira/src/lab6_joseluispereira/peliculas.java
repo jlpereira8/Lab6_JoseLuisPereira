@@ -28,6 +28,8 @@ public class peliculas {
     public peliculas() {
     }
 
+  
+
     public peliculas(String id, String nombre, String categoria, ArrayList<String> idiomas, ArrayList<String> subtitulos, String hora, int rating, ArrayList<String> comentarios, String productora, String director, ArrayList<String> actores) {
         this.id = id;
         this.nombre = nombre;
