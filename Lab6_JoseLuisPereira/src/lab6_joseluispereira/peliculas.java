@@ -9,13 +9,6 @@ package lab6_joseluispereira;
  *
  * @author j0c3lwiz
  */
-public class Lab6_JoseLuisPereira {
-
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String[] args) {
-        // TODO code application logic here
-    }
+public class peliculas {
     
 }
