@@ -77,6 +77,7 @@ public class admin_peliculas {
     }
 
     public void cargarArchivo() {
+            
         Scanner sc = null;
         listaPersonas = new ArrayList();
         if (archivo.exists()) {

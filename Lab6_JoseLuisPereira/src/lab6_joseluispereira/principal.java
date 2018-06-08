@@ -5,7 +5,10 @@
  */
 package lab6_joseluispereira;
 
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -93,7 +96,7 @@ public class principal extends javax.swing.JFrame {
         jLabel39 = new javax.swing.JLabel();
         se_duracion = new javax.swing.JTextField();
         jLabel40 = new javax.swing.JLabel();
-        jSpinner3 = new javax.swing.JSpinner();
+        se_rating = new javax.swing.JSpinner();
         jLabel41 = new javax.swing.JLabel();
         jLabel42 = new javax.swing.JLabel();
         se_actores1 = new javax.swing.JTextField();
@@ -103,6 +106,8 @@ public class principal extends javax.swing.JFrame {
         jLabel44 = new javax.swing.JLabel();
         jLabel45 = new javax.swing.JLabel();
         se_comments1 = new javax.swing.JTextField();
+        bt_enviar_series = new javax.swing.JButton();
+        adminbb = new javax.swing.JDialog();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -426,7 +431,7 @@ public class principal extends javax.swing.JFrame {
 
         jLabel40.setText("Rating");
 
-        jSpinner3.setModel(new javax.swing.SpinnerNumberModel(0, 0, 5, 1));
+        se_rating.setModel(new javax.swing.SpinnerNumberModel(0, 0, 5, 1));
 
         jLabel41.setText("Lista de actores");
 
@@ -437,6 +442,13 @@ public class principal extends javax.swing.JFrame {
         jLabel44.setText("Productor");
 
         jLabel45.setText("Añadir comentarios");
+
+        bt_enviar_series.setText("Enviar");
+        bt_enviar_series.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                bt_enviar_seriesMouseClicked(evt);
+            }
+        });
 
         javax.swing.GroupLayout seriesLayout = new javax.swing.GroupLayout(series.getContentPane());
         series.getContentPane().setLayout(seriesLayout);
@@ -453,7 +465,7 @@ public class principal extends javax.swing.JFrame {
                             .addGroup(seriesLayout.createSequentialGroup()
                                 .addComponent(jLabel40)
                                 .addGap(18, 18, 18)
-                                .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addComponent(se_rating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(seriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
                                 .addGroup(seriesLayout.createSequentialGroup()
                                     .addComponent(jLabel39)
@@ -495,15 +507,17 @@ public class principal extends javax.swing.JFrame {
                                 .addComponent(se_comments1, javax.swing.GroupLayout.PREFERRED_SIZE, 203, javax.swing.GroupLayout.PREFERRED_SIZE))
                             .addGroup(seriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                 .addGroup(seriesLayout.createSequentialGroup()
+                                    .addComponent(jLabel44)
+                                    .addGap(18, 18, 18)
+                                    .addComponent(se_productor1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGroup(javax.swing.GroupLayout.Alignment.LEADING, seriesLayout.createSequentialGroup()
                                     .addGroup(seriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
                                         .addComponent(jLabel41, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                                         .addComponent(jLabel42, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 123, javax.swing.GroupLayout.PREFERRED_SIZE))
                                     .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                                    .addComponent(se_actores1))
-                                .addGroup(seriesLayout.createSequentialGroup()
-                                    .addComponent(jLabel44)
-                                    .addGap(18, 18, 18)
-                                    .addComponent(se_productor1, javax.swing.GroupLayout.PREFERRED_SIZE, 208, javax.swing.GroupLayout.PREFERRED_SIZE))))))
+                                    .addGroup(seriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                        .addComponent(bt_enviar_series)
+                                        .addComponent(se_actores1)))))))
                 .addContainerGap(58, Short.MAX_VALUE))
         );
         seriesLayout.setVerticalGroup(
@@ -546,7 +560,7 @@ public class principal extends javax.swing.JFrame {
                 .addGap(18, 18, 18)
                 .addGroup(seriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel40)
-                    .addComponent(jSpinner3, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(se_rating, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(seriesLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel45)
@@ -566,7 +580,20 @@ public class principal extends javax.swing.JFrame {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                         .addComponent(jLabel42))
                     .addComponent(se_actores1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(49, Short.MAX_VALUE))
+                .addGap(18, 18, 18)
+                .addComponent(bt_enviar_series)
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        javax.swing.GroupLayout adminbbLayout = new javax.swing.GroupLayout(adminbb.getContentPane());
+        adminbb.getContentPane().setLayout(adminbbLayout);
+        adminbbLayout.setHorizontalGroup(
+            adminbbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 561, Short.MAX_VALUE)
+        );
+        adminbbLayout.setVerticalGroup(
+            adminbbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGap(0, 507, Short.MAX_VALUE)
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -673,6 +700,14 @@ public class principal extends javax.swing.JFrame {
             series.add(tokens2[i]);
         }
         usuario p = new usuario(re_correo.getText(),re_contra.getText(),re_fecha.getText(),pels,series,ents);
+        ap.cargarArchivo();
+        ap.setpersonas(p);
+        try {
+            ap.escribirarchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        
     }//GEN-LAST:event_re_guardarMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
@@ -707,8 +742,83 @@ public class principal extends javax.swing.JFrame {
         
     }//GEN-LAST:event_jButton1MouseClicked
 
+    private void bt_enviar_seriesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_enviar_seriesMouseClicked
+      //String id, String nombre, int num_temps, String categoria, ArrayList<String> idiomas, ArrayList<String> subtitulos,
+      //String duracion, int rating, ArrayList<String> comentarios, String productora, String director, ArrayList<String> actores
+        admin_series aps = new admin_series("./Series.txt");
+        ArrayList<String> idiomas= new ArrayList();
+        ArrayList<String> subtitulos= new ArrayList();
+        ArrayList<String> comentarios= new ArrayList();
+        ArrayList<String> actores= new ArrayList();
+        String tokens[]=se_idiomas.getText().split(",");
+        String tokens2[]=se_subs.getText().split(",");
+        String tokens3[]=se_comments1.getText().split(",");  
+        String tokens4[]=se_actores1.getText().split(","); 
+        int p=(Integer)se_rating.getValue();
+        int pit=(Integer)jSpinner2.getValue();
+       // String olabb = Integer.toString(p);
+        Integer ents = Integer.valueOf(re_tarjeta.getText());
+        for (int i = 0; i < tokens.length; i++) {
+            idiomas.add(tokens[i]);
+        }
+        for (int i = 0; i < tokens2.length; i++) {
+            subtitulos.add(tokens2[i]);
+        }
+        for (int i = 0; i < tokens3.length; i++) {
+            comentarios.add(tokens3[i]);
+        }
+         for (int i = 0; i < tokens4.length; i++) {
+            actores.add(tokens4[i]);
+        }
+        series p3 = new series(se_id.getText(),se_nombre.getText(),pit,se_categora.getText(),idiomas,subtitulos,se_duracion.getText(),p,comentarios,se_productor1.getText(),se_director1.getText(),actores);
+        aps.cargarArchivo();
+        aps.setpersonas(p3);
+        try {
+            aps.escribirarchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_bt_enviar_seriesMouseClicked
+
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-        // TODO add your handling code here:
+       //String id, String nombre, String categoria, ArrayList<String> idiomas, ArrayList<String> subtitulos, String hora, int rating, 
+        //ArrayList<String> comentarios, String productora, String director, ArrayList<String> actores
+        
+        
+        
+        admin_peliculas aps2 = new admin_peliculas("./Series.txt");
+        ArrayList<String> idiomas= new ArrayList();
+        ArrayList<String> subtitulos= new ArrayList();
+        ArrayList<String> comentarios= new ArrayList();
+        ArrayList<String> actores= new ArrayList();
+        String tokens[]=se_idiomas.getText().split(",");
+        String tokens2[]=se_subs.getText().split(",");
+        String tokens3[]=se_comments1.getText().split(",");  
+        String tokens4[]=se_actores1.getText().split(","); 
+        int p=(Integer)se_rating.getValue();
+        //int pit=(Integer)jSpinner2.getValue();
+       // String olabb = Integer.toString(p);
+        Integer ents = Integer.valueOf(re_tarjeta.getText());
+        for (int i = 0; i < tokens.length; i++) {
+            idiomas.add(tokens[i]);
+        }
+        for (int i = 0; i < tokens2.length; i++) {
+            subtitulos.add(tokens2[i]);
+        }
+        for (int i = 0; i < tokens3.length; i++) {
+            comentarios.add(tokens3[i]);
+        }
+         for (int i = 0; i < tokens4.length; i++) {
+            actores.add(tokens4[i]);
+        }
+        peliculas p3 = new peliculas(pe_id.getText(),pe_nombre.getText(),pe_categoria.getText(),idiomas,subtitulos,pe_duracion.getText(),p,comentarios,pe_productor.getText(),pe_director.getText(),actores);
+        aps2.cargarArchivo();
+        aps2.setpersonas(p3);
+        try {
+            aps2.escribirarchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_jButton2MouseClicked
 
     /**
@@ -748,6 +858,8 @@ public class principal extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JDialog admin_peliculas;
+    private javax.swing.JDialog adminbb;
+    private javax.swing.JButton bt_enviar_series;
     private javax.swing.JTextField is_contra;
     private javax.swing.JTextField is_correo;
     private javax.swing.JButton jButton1;
@@ -798,7 +910,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JSpinner jSpinner2;
-    private javax.swing.JSpinner jSpinner3;
     private javax.swing.JTextField pe_actores;
     private javax.swing.JTextField pe_categoria;
     private javax.swing.JTextField pe_comments;
@@ -827,6 +938,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JTextField se_idiomas;
     private javax.swing.JTextField se_nombre;
     private javax.swing.JTextField se_productor1;
+    private javax.swing.JSpinner se_rating;
     private javax.swing.JTextField se_subs;
     private javax.swing.JDialog series;
     // End of variables declaration//GEN-END:variables
