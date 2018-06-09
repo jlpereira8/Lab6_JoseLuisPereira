@@ -25,11 +25,13 @@ public class peliculas {
     private String director;
     private ArrayList<String> actores;
 
-    public peliculas() {
+    public peliculas(String id, String nombre, String categoria) {
+        this.id = id;
+        this.nombre = nombre;
+        this.categoria = categoria;
     }
 
-  
-
+   
     public peliculas(String id, String nombre, String categoria, ArrayList<String> idiomas, ArrayList<String> subtitulos, String hora, int rating, ArrayList<String> comentarios, String productora, String director, ArrayList<String> actores) {
         this.id = id;
         this.nombre = nombre;
@@ -134,8 +136,11 @@ public class peliculas {
 
     @Override
     public String toString() {
-        return "peliculas{" + "id=" + id + ", nombre=" + nombre + ", categoria=" + categoria + ", idiomas=" + idiomas + ", subtitulos=" + subtitulos + ", hora=" + hora + ", rating=" + rating + ", comentarios=" + comentarios + ", productora=" + productora + ", director=" + director + ", actores=" + actores + '}';
+        return "peliculas{" + "nombre=" + nombre + '}';
     }
+
+    
+    
     
     
     

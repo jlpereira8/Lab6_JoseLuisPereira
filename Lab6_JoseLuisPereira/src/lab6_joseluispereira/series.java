@@ -26,6 +26,13 @@ public class series {
     private String director;
     private ArrayList<String> actores;
 
+    public series(String id, String nombre, String categoria) {
+        this.id = id;
+        this.nombre = nombre;
+        this.categoria = categoria;
+    }
+
+    
     public series() {
     }
 
@@ -142,8 +149,12 @@ public class series {
 
     @Override
     public String toString() {
-        return "series{" + "id=" + id + ", nombre=" + nombre + ", num_temps=" + num_temps + ", categoria=" + categoria + ", idiomas=" + idiomas + ", subtitulos=" + subtitulos + ", duracion=" + duracion + ", rating=" + rating + ", comentarios=" + comentarios + ", productora=" + productora + ", director=" + director + ", actores=" + actores + '}';
+        return "series{" + "nombre=" + nombre + '}';
     }
+
+    
+
+    
     
     
     

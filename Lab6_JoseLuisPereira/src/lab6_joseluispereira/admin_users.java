@@ -55,10 +55,10 @@ public class admin_users {
             for (usuario t : listaPersonas) {
                 bw.write(t.getCorreo() + ";");
                 bw.write(t.getContra() + ";");
-                bw.write(t.getFecha() + ";");
+               // bw.write(t.getFecha() + ";");
                 bw.write(t.getPeliculas() + ";");
                 bw.write(t.getSeries_fav() + ";");
-                bw.write(t.getTarjeta() + ";");      
+                //bw.write(t.getTarjeta() + ";");      
             }
             bw.flush();
         } catch (Exception ex) {
