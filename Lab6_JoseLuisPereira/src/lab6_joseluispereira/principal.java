@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.JOptionPane;
 
 /**
  *
@@ -108,6 +109,11 @@ public class principal extends javax.swing.JFrame {
         se_comments1 = new javax.swing.JTextField();
         bt_enviar_series = new javax.swing.JButton();
         adminbb = new javax.swing.JDialog();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel46 = new javax.swing.JLabel();
+        jLabel47 = new javax.swing.JLabel();
+        peliculas_olabb = new javax.swing.JButton();
+        series_olabb = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
@@ -585,15 +591,75 @@ public class principal extends javax.swing.JFrame {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
+
+        jLabel46.setText("Agregar Peliculas");
+
+        jLabel47.setText("Agregar Series");
+
+        peliculas_olabb.setText("Peliculas");
+        peliculas_olabb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                peliculas_olabbMouseClicked(evt);
+            }
+        });
+
+        series_olabb.setText("Series");
+        series_olabb.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                series_olabbMouseClicked(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
+        jPanel1.setLayout(jPanel1Layout);
+        jPanel1Layout.setHorizontalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(37, 37, 37)
+                        .addComponent(jLabel46))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(48, 48, 48)
+                        .addComponent(peliculas_olabb)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 158, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel47, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
+                        .addComponent(series_olabb)
+                        .addGap(19, 19, 19)))
+                .addGap(92, 92, 92))
+        );
+        jPanel1Layout.setVerticalGroup(
+            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel46)
+                    .addComponent(jLabel47))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(peliculas_olabb)
+                    .addComponent(series_olabb))
+                .addContainerGap(45, Short.MAX_VALUE))
+        );
+
         javax.swing.GroupLayout adminbbLayout = new javax.swing.GroupLayout(adminbb.getContentPane());
         adminbb.getContentPane().setLayout(adminbbLayout);
         adminbbLayout.setHorizontalGroup(
             adminbbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 561, Short.MAX_VALUE)
+            .addGroup(adminbbLayout.createSequentialGroup()
+                .addGap(52, 52, 52)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap(69, Short.MAX_VALUE))
         );
         adminbbLayout.setVerticalGroup(
             adminbbLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGap(0, 507, Short.MAX_VALUE)
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, adminbbLayout.createSequentialGroup()
+                .addContainerGap(292, Short.MAX_VALUE)
+                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -688,10 +754,10 @@ public class principal extends javax.swing.JFrame {
     private void re_guardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_re_guardarMouseClicked
         //String correo, String contra, String fecha, ArrayList<String> peliculas, ArrayList<String> series_fav, int tarjeta
         admin_users ap = new admin_users("./Usuarios.txt");
-        ArrayList<String> pels= new ArrayList();
-        ArrayList<String> series= new ArrayList();
-        String tokens[]=re_pelix.getText().split(",");
-        String tokens2[]=re_series.getText().split(",");
+        ArrayList<String> pels = new ArrayList();
+        ArrayList<String> series = new ArrayList();
+        String tokens[] = re_pelix.getText().split(",");
+        String tokens2[] = re_series.getText().split(",");
         Integer ents = Integer.valueOf(re_tarjeta.getText());
         for (int i = 0; i < tokens.length; i++) {
             pels.add(tokens[i]);
@@ -699,7 +765,7 @@ public class principal extends javax.swing.JFrame {
         for (int i = 0; i < tokens2.length; i++) {
             series.add(tokens2[i]);
         }
-        usuario p = new usuario(re_correo.getText(),re_contra.getText(),re_fecha.getText(),pels,series,ents);
+        usuario p = new usuario(re_correo.getText(), re_contra.getText(), re_fecha.getText(), pels, series, ents);
         ap.cargarArchivo();
         ap.setpersonas(p);
         try {
@@ -707,57 +773,39 @@ public class principal extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        
+
     }//GEN-LAST:event_re_guardarMouseClicked
 
     private void jButton1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton1MouseClicked
 // String id, String nombre, String categoria, ArrayList<String> idiomas, ArrayList<String> subtitulos, String hora, int rating, ArrayList<String> comentarios, String productora, String director, ArrayList<String> actores)
-        admin_peliculas aps = new admin_peliculas("./Peliculas.txt");
-        ArrayList<String> idiomas= new ArrayList();
-        ArrayList<String> subtitulos= new ArrayList();
-        ArrayList<String> comentarios= new ArrayList();
-        ArrayList<String> actores= new ArrayList();
-        String tokens[]=pe_idiomas.getText().split(",");
-        String tokens2[]=pe_subt.getText().split(",");
-        String tokens3[]=pe_comments.getText().split(",");  
-        String tokens4[]=pe_actores.getText().split(","); 
-        int p=(Integer)pe_rating.getValue();
-       // String olabb = Integer.toString(p);
-        Integer ents = Integer.valueOf(re_tarjeta.getText());
-        for (int i = 0; i < tokens.length; i++) {
-            idiomas.add(tokens[i]);
+     
+           
+    if (is_correo.getText().equals("admin") && is_contra.getText().equals("admin")) {
+            adminbb.setModal(true);//para solo poder a acceder a una ventana
+            adminbb.pack();
+            adminbb.setLocationRelativeTo(this);//centra con el frame principal
+            adminbb.setVisible(true);
         }
-        for (int i = 0; i < tokens2.length; i++) {
-            subtitulos.add(tokens2[i]);
-        }
-        for (int i = 0; i < tokens3.length; i++) {
-            comentarios.add(tokens3[i]);
-        }
-         for (int i = 0; i < tokens4.length; i++) {
-            actores.add(tokens4[i]);
-        }
-        peliculas p2 = new peliculas(pe_id.getText(),pe_nombre.getText(),pe_categoria.getText(),idiomas,subtitulos,pe_duracion.getText(),p,comentarios,pe_productor.getText(),pe_director.getText(),actores);
-        
-        
-        
+
+
     }//GEN-LAST:event_jButton1MouseClicked
 
     private void bt_enviar_seriesMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_bt_enviar_seriesMouseClicked
-      //String id, String nombre, int num_temps, String categoria, ArrayList<String> idiomas, ArrayList<String> subtitulos,
-      //String duracion, int rating, ArrayList<String> comentarios, String productora, String director, ArrayList<String> actores
+        //String id, String nombre, int num_temps, String categoria, ArrayList<String> idiomas, ArrayList<String> subtitulos,
+        //String duracion, int rating, ArrayList<String> comentarios, String productora, String director, ArrayList<String> actores
         admin_series aps = new admin_series("./Series.txt");
-        ArrayList<String> idiomas= new ArrayList();
-        ArrayList<String> subtitulos= new ArrayList();
-        ArrayList<String> comentarios= new ArrayList();
-        ArrayList<String> actores= new ArrayList();
-        String tokens[]=se_idiomas.getText().split(",");
-        String tokens2[]=se_subs.getText().split(",");
-        String tokens3[]=se_comments1.getText().split(",");  
-        String tokens4[]=se_actores1.getText().split(","); 
-        int p=(Integer)se_rating.getValue();
-        int pit=(Integer)jSpinner2.getValue();
-       // String olabb = Integer.toString(p);
-        Integer ents = Integer.valueOf(re_tarjeta.getText());
+        ArrayList<String> idiomas = new ArrayList();
+        ArrayList<String> subtitulos = new ArrayList();
+        ArrayList<String> comentarios = new ArrayList();
+        ArrayList<String> actores = new ArrayList();
+        String tokens[] = se_idiomas.getText().split(",");
+        String tokens2[] = se_subs.getText().split(",");
+        String tokens3[] = se_comments1.getText().split(",");
+        String tokens4[] = se_actores1.getText().split(",");
+        int p = (Integer) se_rating.getValue();
+        int pit = (Integer) jSpinner2.getValue();
+        // String olabb = Integer.toString(p);
+//        Integer ents = Integer.valueOf(re_tarjeta.getText());
         for (int i = 0; i < tokens.length; i++) {
             idiomas.add(tokens[i]);
         }
@@ -767,10 +815,10 @@ public class principal extends javax.swing.JFrame {
         for (int i = 0; i < tokens3.length; i++) {
             comentarios.add(tokens3[i]);
         }
-         for (int i = 0; i < tokens4.length; i++) {
+        for (int i = 0; i < tokens4.length; i++) {
             actores.add(tokens4[i]);
         }
-        series p3 = new series(se_id.getText(),se_nombre.getText(),pit,se_categora.getText(),idiomas,subtitulos,se_duracion.getText(),p,comentarios,se_productor1.getText(),se_director1.getText(),actores);
+        series p3 = new series(se_id.getText(), se_nombre.getText(), pit, se_categora.getText(), idiomas, subtitulos, se_duracion.getText(), p, comentarios, se_productor1.getText(), se_director1.getText(), actores);
         aps.cargarArchivo();
         aps.setpersonas(p3);
         try {
@@ -781,24 +829,22 @@ public class principal extends javax.swing.JFrame {
     }//GEN-LAST:event_bt_enviar_seriesMouseClicked
 
     private void jButton2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton2MouseClicked
-       //String id, String nombre, String categoria, ArrayList<String> idiomas, ArrayList<String> subtitulos, String hora, int rating, 
+        //String id, String nombre, String categoria, ArrayList<String> idiomas, ArrayList<String> subtitulos, String hora, int rating, 
         //ArrayList<String> comentarios, String productora, String director, ArrayList<String> actores
-        
-        
-        
-        admin_peliculas aps2 = new admin_peliculas("./Series.txt");
-        ArrayList<String> idiomas= new ArrayList();
-        ArrayList<String> subtitulos= new ArrayList();
-        ArrayList<String> comentarios= new ArrayList();
-        ArrayList<String> actores= new ArrayList();
-        String tokens[]=se_idiomas.getText().split(",");
-        String tokens2[]=se_subs.getText().split(",");
-        String tokens3[]=se_comments1.getText().split(",");  
-        String tokens4[]=se_actores1.getText().split(","); 
-        int p=(Integer)se_rating.getValue();
+
+        admin_peliculas aps2 = new admin_peliculas("./Peliculas.txt");
+        ArrayList<String> idiomas = new ArrayList();
+        ArrayList<String> subtitulos = new ArrayList();
+        ArrayList<String> comentarios = new ArrayList();
+        ArrayList<String> actores = new ArrayList();
+        String tokens[] = pe_idiomas.getText().split(",");
+        String tokens2[] = pe_subt.getText().split(",");
+        String tokens3[] = pe_comments.getText().split(",");
+        String tokens4[] = pe_actores.getText().split(",");
+        int p = (Integer) pe_rating.getValue();
         //int pit=(Integer)jSpinner2.getValue();
-       // String olabb = Integer.toString(p);
-        Integer ents = Integer.valueOf(re_tarjeta.getText());
+        // String olabb = Integer.toString(p);
+//        Integer ents = Integer.valueOf(re_tarjeta.getText());
         for (int i = 0; i < tokens.length; i++) {
             idiomas.add(tokens[i]);
         }
@@ -808,18 +854,37 @@ public class principal extends javax.swing.JFrame {
         for (int i = 0; i < tokens3.length; i++) {
             comentarios.add(tokens3[i]);
         }
-         for (int i = 0; i < tokens4.length; i++) {
+        for (int i = 0; i < tokens4.length; i++) {
             actores.add(tokens4[i]);
         }
-        peliculas p3 = new peliculas(pe_id.getText(),pe_nombre.getText(),pe_categoria.getText(),idiomas,subtitulos,pe_duracion.getText(),p,comentarios,pe_productor.getText(),pe_director.getText(),actores);
+        peliculas p3 = new peliculas(pe_id.getText(), pe_nombre.getText(), pe_categoria.getText(), idiomas, subtitulos, pe_duracion.getText(), p, comentarios, pe_productor.getText(), pe_director.getText(), actores);
         aps2.cargarArchivo();
         aps2.setpersonas(p3);
+        JOptionPane.showMessageDialog(this, "La pelicula se anadio correctamente");
         try {
             aps2.escribirarchivo();
         } catch (IOException ex) {
             Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+             JOptionPane.showMessageDialog(this, "La pelicula NO se anadio correctamente");
         }
     }//GEN-LAST:event_jButton2MouseClicked
+
+    private void peliculas_olabbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_peliculas_olabbMouseClicked
+        // TODO add your handling code here:
+
+        admin_peliculas.setModal(true);//para solo poder a acceder a una ventana
+        admin_peliculas.pack();
+        admin_peliculas.setLocationRelativeTo(this);//centra con el frame principal
+        admin_peliculas.setVisible(true);
+    }//GEN-LAST:event_peliculas_olabbMouseClicked
+
+    private void series_olabbMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_series_olabbMouseClicked
+        // TODO add your handling code here:
+        series.setModal(true);//para solo poder a acceder a una ventana
+        series.pack();
+        series.setLocationRelativeTo(this);//centra con el frame principal
+        series.setVisible(true);
+    }//GEN-LAST:event_series_olabbMouseClicked
 
     /**
      * @param args the command line arguments
@@ -904,11 +969,14 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel43;
     private javax.swing.JLabel jLabel44;
     private javax.swing.JLabel jLabel45;
+    private javax.swing.JLabel jLabel46;
+    private javax.swing.JLabel jLabel47;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JSpinner jSpinner2;
     private javax.swing.JTextField pe_actores;
     private javax.swing.JTextField pe_categoria;
@@ -921,6 +989,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JTextField pe_productor;
     private javax.swing.JSpinner pe_rating;
     private javax.swing.JTextField pe_subt;
+    private javax.swing.JButton peliculas_olabb;
     private javax.swing.JTextField re_contra;
     private javax.swing.JTextField re_correo;
     private javax.swing.JTextField re_fecha;
@@ -941,5 +1010,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JSpinner se_rating;
     private javax.swing.JTextField se_subs;
     private javax.swing.JDialog series;
+    private javax.swing.JButton series_olabb;
     // End of variables declaration//GEN-END:variables
 }
