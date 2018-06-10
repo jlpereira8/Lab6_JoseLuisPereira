@@ -136,8 +136,10 @@ public class peliculas {
 
     @Override
     public String toString() {
-        return "peliculas{" + "nombre=" + nombre + '}';
+        return "peliculas{" + "id=" + id + '}';
     }
+
+   
 
     
     

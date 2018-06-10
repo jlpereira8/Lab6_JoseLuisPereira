@@ -25,12 +25,13 @@ import java.util.Scanner;
  * @author j0c3lwiz
  */
 public class principal extends javax.swing.JFrame {
+
     File archivo = null;
     int ents34;
-     String r="";
-        String fd="";
-    ArrayList<String> pels22 ;
-        ArrayList<String> series;
+    String r = "";
+    String fd = "";
+    ArrayList<String> pels22;
+    ArrayList<String> series;
     ArrayList<peliculas> a_peliculas = new ArrayList();
     ArrayList<series> a_series = new ArrayList();
     ArrayList<String> subtitulos = new ArrayList();
@@ -45,8 +46,8 @@ public class principal extends javax.swing.JFrame {
     int p;
     int p2;
     int pit;
-    int cont=0;
-   //  admin_users ap ; 
+    int cont = 0;
+    //  admin_users ap ; 
 
     /**
      * Creates new form principal
@@ -86,36 +87,47 @@ public class principal extends javax.swing.JFrame {
         a_series.add(new series("731", "Amityville", 5, "Terror", idiomas2, idiomas2, "1:31", 1, null, "Jolsa", "Persnhsa", null));
 
     }
+
     public void escribirarchivo()
             throws IOException {
-        File archivo=null;
+        File archivo = null;
         FileWriter fw = null;
         BufferedWriter bw = null;
         for (int i = 0; i < pel_favs.size(); i++) {
-            r+=pel_favs.get(i)+",";
+            r += pel_favs.get(i) + ",";
         }
+        String r2 = "Peliculas" + "[ " + r + " ]";
         for (int i = 0; i < ser_favs.size(); i++) {
-            fd+=ser_favs.get(i)+",";
+            fd += ser_favs.get(i) + ",";
         }
+        String fd2 = "Series" + "[ " + fd + " ]";
         try {
-            archivo= new File("./info_usuarios.txt");
+            System.out.println("apo" + r);
+            System.out.println(pel_favs);
+            archivo = new File("./info_usuarios.txt");
             fw = new FileWriter(archivo, false);
             bw = new BufferedWriter(fw);
             for (usuario t : lista) {
                 bw.write(t.getCorreo() + ";");
-                bw.write(t.getContra() + ";");
-                bw.write(r);
-                bw.write(fd);
-                
+                bw.write(r2);
+                bw.write(fd2);
+
             }
-            
+
             bw.flush();
+            fd = "";
+            fd2 = "";
+            r2 = "";
+            r = "";
+            pel_favs.clear();
+            ser_favs.clear();
         } catch (Exception ex) {
         }
         bw.close();
         fw.close();
     }
-    public void mod_pelis(int e,ArrayList<String> v3,String categoria,ArrayList<String>v2,String director,String duracion,String id,ArrayList<String>v,String nombre,String productor,int t,ArrayList<String>v1 ){
+
+    public void mod_pelis(int e, ArrayList<String> v3, String categoria, ArrayList<String> v2, String director, String duracion, String id, ArrayList<String> v, String nombre, String productor, int t, ArrayList<String> v1) {
         a_peliculas.get(e).setActores(v3);
         a_peliculas.get(e).setCategoria(categoria);
         a_peliculas.get(e).setComentarios(v2);
@@ -128,11 +140,12 @@ public class principal extends javax.swing.JFrame {
         a_peliculas.get(e).setRating(t);
         a_peliculas.get(e).setSubtitulos(v1);
     }
-    public void mod_series(int e,ArrayList<String> v3,String categoria,ArrayList<String>v2,String director,String duracion,String id,ArrayList<String>v,String nombre,String productor,int t,int t2,ArrayList<String>v1 ){
+
+    public void mod_series(int e, ArrayList<String> v3, String categoria, ArrayList<String> v2, String director, String duracion, String id, ArrayList<String> v, String nombre, String productor, int t, int t2, ArrayList<String> v1) {
         a_series.get(e).setActores(v3);
         a_series.get(e).setCategoria(categoria);
         a_series.get(e).setComentarios(v2);
-        a_series.get(e).setDirector(director);       
+        a_series.get(e).setDirector(director);
         a_series.get(e).setId(id);
         a_series.get(e).setIdiomas(v);
         a_series.get(e).setNombre(nombre);
@@ -141,7 +154,6 @@ public class principal extends javax.swing.JFrame {
         a_series.get(e).setNum_temps(t2);
         a_series.get(e).setSubtitulos(v1);
     }
-    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -271,6 +283,8 @@ public class principal extends javax.swing.JFrame {
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
         jButton15 = new javax.swing.JButton();
+        jButton16 = new javax.swing.JButton();
+        jButton17 = new javax.swing.JButton();
         mod_peliculas = new javax.swing.JDialog();
         jLabel52 = new javax.swing.JLabel();
         pe_id1 = new javax.swing.JTextField();
@@ -1101,10 +1115,24 @@ public class principal extends javax.swing.JFrame {
             }
         });
 
-        jButton15.setText("txt");
+        jButton15.setText("Enviar a txt");
         jButton15.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jButton15MouseClicked(evt);
+            }
+        });
+
+        jButton16.setText("Log out");
+        jButton16.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton16MouseClicked(evt);
+            }
+        });
+
+        jButton17.setText("Actualizar series y peliculas");
+        jButton17.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton17MouseClicked(evt);
             }
         });
 
@@ -1124,39 +1152,53 @@ public class principal extends javax.swing.JFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(jButton6)
                 .addGap(122, 122, 122))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
+            .addGroup(principalLayout.createSequentialGroup()
                 .addGap(30, 30, 30)
-                .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 131, Short.MAX_VALUE)
-                .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(76, 76, 76))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
-                .addGap(46, 46, 46)
-                .addComponent(jButton15)
-                .addGap(66, 66, 66)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(principalLayout.createSequentialGroup()
+                        .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 74, Short.MAX_VALUE)
+                        .addComponent(jButton15)
+                        .addGap(18, 18, 18)
+                        .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(76, 76, 76))
+                    .addGroup(principalLayout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addGap(32, 32, 32)
+                        .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
+                                .addComponent(jButton16)
+                                .addGap(57, 57, 57))
+                            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
+                                .addComponent(jButton17)
+                                .addContainerGap())))))
         );
         principalLayout.setVerticalGroup(
             principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(principalLayout.createSequentialGroup()
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
                 .addContainerGap(55, Short.MAX_VALUE)
-                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.TRAILING))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane3, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane4, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(18, 18, 18)
-                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton5)
-                    .addComponent(jButton6))
-                .addGap(46, 46, 46)
-                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton15))
-                .addGap(33, 33, 33))
+                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(principalLayout.createSequentialGroup()
+                        .addComponent(jButton17)
+                        .addGap(82, 82, 82)
+                        .addComponent(jButton16))
+                    .addGroup(principalLayout.createSequentialGroup()
+                        .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel48, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jLabel49, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(jScrollPane3, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 245, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(jButton15))
+                        .addGap(18, 18, 18)
+                        .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                            .addComponent(jButton5)
+                            .addComponent(jButton6))
+                        .addGap(37, 37, 37)
+                        .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(42, 42, 42))
         );
 
         mod_peliculas.getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -1514,7 +1556,7 @@ public class principal extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-        */
+         */
         //String correo, String contra, String fecha, ArrayList<String> peliculas, ArrayList<String> series_fav, int tarjeta
         String correo, contra, fecha, peliculas, series_fav;
         int tarj;
@@ -1528,17 +1570,17 @@ public class principal extends javax.swing.JFrame {
             aux = 0;
         }
         if (aux == 1) {
-        pels22 = new ArrayList();
-        series = new ArrayList();
-        String tokens[] = re_pelix.getText().split(",");
-        String tokens2[] = re_series.getText().split(",");
-        ents34 = Integer.valueOf(re_tarjeta.getText());
-        for (int i = 0; i < tokens.length; i++) {
-            pels.add(tokens[i]);
-        }
-        for (int i = 0; i < tokens2.length; i++) {
-            series.add(tokens2[i]);
-        }
+            pels22 = new ArrayList();
+            series = new ArrayList();
+            String tokens[] = re_pelix.getText().split(",");
+            String tokens2[] = re_series.getText().split(",");
+            ents34 = Integer.valueOf(re_tarjeta.getText());
+            for (int i = 0; i < tokens.length; i++) {
+                pels.add(tokens[i]);
+            }
+            for (int i = 0; i < tokens2.length; i++) {
+                series.add(tokens2[i]);
+            }
             lista.add(new usuario(re_correo.getText(), re_contra.getText(), re_fecha.getText(), pels, series, ents34));
             JOptionPane.showMessageDialog(this, "El usuario se registro correctamente");
             cont++;
@@ -1735,9 +1777,10 @@ public class principal extends javax.swing.JFrame {
             ID = ((peliculas) modeloLISTA2.getElementAt(jl_peliculas.getSelectedIndex())).getId();
             nombre = ((peliculas) modeloLISTA2.getElementAt(jl_peliculas.getSelectedIndex())).getNombre();
             int centinela = -1;
+            pel_favs.add(ID);
             for (int i = 0; i < raiz1.getChildCount(); i++) {
                 if (raiz1.getChildAt(i).toString().equals(categoria)) {
-                    pel_favs.add(raiz1.getChildAt(i).toString());
+                    // pel_favs.add(raiz1.getChildAt(i).toString());
                     DefaultMutableTreeNode p = new DefaultMutableTreeNode(
                             new peliculas(ID, nombre, categoria));
                     ((DefaultMutableTreeNode) raiz1.getChildAt(i)).add(p);
@@ -1759,8 +1802,8 @@ public class principal extends javax.swing.JFrame {
     private void jButton6MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton6MouseClicked
         // TODO add your handling code here:
         if (jl_series.getSelectedIndex() >= 0) {
-            DefaultTreeModel modeloARBOL2 = (DefaultTreeModel) jt_favs.getModel();
-            DefaultMutableTreeNode raiz2 = (DefaultMutableTreeNode) modeloARBOL2.getRoot();
+            DefaultTreeModel modeloARBOL1 = (DefaultTreeModel) jt_favs.getModel();
+            DefaultMutableTreeNode raiz1 = (DefaultMutableTreeNode) modeloARBOL1.getRoot();
             DefaultListModel modeloLISTA2 = (DefaultListModel) jl_series.getModel();
             String categoria;
             String ID;
@@ -1769,12 +1812,13 @@ public class principal extends javax.swing.JFrame {
             ID = ((series) modeloLISTA2.getElementAt(jl_series.getSelectedIndex())).getId();
             nombre = ((series) modeloLISTA2.getElementAt(jl_series.getSelectedIndex())).getNombre();
             int centinela = -1;
-            for (int i = 0; i < raiz2.getChildCount(); i++) {
-                if (raiz2.getChildAt(i).toString().equals(categoria)) {
-                    ser_favs.add(raiz2.getChildAt(i).toString());
+            ser_favs.add(ID);
+            for (int i = 0; i < raiz1.getChildCount(); i++) {
+                if (raiz1.getChildAt(i).toString().equals(categoria)) {
+                    // pel_favs.add(raiz1.getChildAt(i).toString());
                     DefaultMutableTreeNode p = new DefaultMutableTreeNode(
                             new series(ID, nombre, categoria));
-                    ((DefaultMutableTreeNode) raiz2.getChildAt(i)).add(p);
+                    ((DefaultMutableTreeNode) raiz1.getChildAt(i)).add(p);
                     centinela = 1;
                 }
             }
@@ -1782,10 +1826,9 @@ public class principal extends javax.swing.JFrame {
                 DefaultMutableTreeNode n = new DefaultMutableTreeNode(categoria);
                 DefaultMutableTreeNode p = new DefaultMutableTreeNode(new series(ID, nombre, categoria));
                 n.add(p);
-                raiz2.add(p);
+                raiz1.add(n);
             }
-            modeloARBOL2.reload();
-            //System.out.println(ser_favs);
+            modeloARBOL1.reload();
         } else {
             JOptionPane.showMessageDialog(this, "No hay personas seleccionadas");
         }
@@ -1881,19 +1924,19 @@ public class principal extends javax.swing.JFrame {
         for (int i = 0; i < tokens4.length; i++) {
             v3.add(tokens4[i]);
         }
-        mod_pelis(e,v3, categoria,v2,director, duracion, id,v,nombre,productor, t,v1 );
+        mod_pelis(e, v3, categoria, v2, director, duracion, id, v, nombre, productor, t, v1);
 
     }//GEN-LAST:event_jButton10MouseClicked
 
     private void jButton13MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton13MouseClicked
-      //JOptionPane.showMessageDialog(this, "La pelicula se modifico correctamente");
-       mod_peliculas.dispose();
-       
+        //JOptionPane.showMessageDialog(this, "La pelicula se modifico correctamente");
+        mod_peliculas.dispose();
+
     }//GEN-LAST:event_jButton13MouseClicked
 
     private void jButton12MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton12MouseClicked
         // AKI PRRO mmmmmmmmmmmmmmmmmmmmm
-         DefaultListModel modelo = (DefaultListModel) mod_lista.getModel();
+        DefaultListModel modelo = (DefaultListModel) mod_lista.getModel();
         modelo.removeAllElements();
         for (int i = 0; i < a_peliculas.size(); i++) {
             modelo.addElement(a_peliculas.get(i));
@@ -1909,7 +1952,7 @@ public class principal extends javax.swing.JFrame {
 
     private void jButton11MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton11MouseClicked
         //MODIFICAR poooosaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa
-        
+
         DefaultListModel mod = (DefaultListModel) mod_lista2.getModel();
         String b = JOptionPane.showInputDialog(this, "Ingrese la posicion que desea modificar ");
         int e = Integer.parseInt(b);
@@ -1952,12 +1995,12 @@ public class principal extends javax.swing.JFrame {
         for (int i = 0; i < tokens4.length; i++) {
             v3.add(tokens4[i]);
         }
-        mod_series(e,v3, categoria,v2,director, duracion, id,v,nombre,productor, t,t2,v1 );
+        mod_series(e, v3, categoria, v2, director, duracion, id, v, nombre, productor, t, t2, v1);
     }//GEN-LAST:event_jButton11MouseClicked
 
     private void jButton14MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton14MouseClicked
-       //JOptionPane.showMessageDialog(this, "La serie se modifico correctamente");
-       mod_series.dispose();
+        //JOptionPane.showMessageDialog(this, "La serie se modifico correctamente");
+        mod_series.dispose();
     }//GEN-LAST:event_jButton14MouseClicked
 
     private void jButton15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton15MouseClicked
@@ -1968,8 +2011,28 @@ public class principal extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
         }
-       
+
     }//GEN-LAST:event_jButton15MouseClicked
+
+    private void jButton16MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton16MouseClicked
+        // TODO add your handling code here:
+        principal.dispose();
+    }//GEN-LAST:event_jButton16MouseClicked
+
+    private void jButton17MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton17MouseClicked
+        DefaultListModel modelo = (DefaultListModel) jl_peliculas.getModel();
+        modelo.removeAllElements();
+        for (int i = 0; i < a_peliculas.size(); i++) {
+            modelo.addElement(a_peliculas.get(i));
+        }
+        DefaultListModel modelo2 = (DefaultListModel) jl_series.getModel();
+        modelo2.removeAllElements();
+        for (int i2 = 0; i2 < a_series.size(); i2++) {
+            modelo2.addElement(a_series.get(i2));
+        }
+        jl_peliculas.setModel(modelo);
+        jl_series.setModel(modelo2);
+    }//GEN-LAST:event_jButton17MouseClicked
 
     /**
      * @param args the command line arguments
@@ -2020,6 +2083,8 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
     private javax.swing.JButton jButton15;
+    private javax.swing.JButton jButton16;
+    private javax.swing.JButton jButton17;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -2194,6 +2259,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JList<String> ta_va2;
     // End of variables declaration//GEN-END:variables
 ArrayList<usuario> lista = new ArrayList();
-ArrayList<String> pel_favs=new ArrayList();
-ArrayList<String> ser_favs=new ArrayList();
+    ArrayList<String> pel_favs = new ArrayList();
+    ArrayList<String> ser_favs = new ArrayList();
 }

@@ -149,8 +149,10 @@ public class series {
 
     @Override
     public String toString() {
-        return "series{" + "nombre=" + nombre + '}';
+        return "series{" +id + '}';
     }
+
+  
 
     
 
