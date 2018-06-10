@@ -5,7 +5,9 @@
  */
 package lab6_joseluispereira;
 
+import java.io.BufferedWriter;
 import java.io.File;
+import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.logging.Level;
@@ -16,13 +18,19 @@ import javax.swing.tree.DefaultMutableTreeNode;
 import javax.swing.tree.DefaultTreeModel;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.Scanner;
 
 /**
  *
  * @author j0c3lwiz
  */
 public class principal extends javax.swing.JFrame {
-
+    File archivo = null;
+    int ents34;
+     String r="";
+        String fd="";
+    ArrayList<String> pels22 ;
+        ArrayList<String> series;
     ArrayList<peliculas> a_peliculas = new ArrayList();
     ArrayList<series> a_series = new ArrayList();
     ArrayList<String> subtitulos = new ArrayList();
@@ -37,6 +45,8 @@ public class principal extends javax.swing.JFrame {
     int p;
     int p2;
     int pit;
+    int cont=0;
+   //  admin_users ap ; 
 
     /**
      * Creates new form principal
@@ -76,6 +86,35 @@ public class principal extends javax.swing.JFrame {
         a_series.add(new series("731", "Amityville", 5, "Terror", idiomas2, idiomas2, "1:31", 1, null, "Jolsa", "Persnhsa", null));
 
     }
+    public void escribirarchivo()
+            throws IOException {
+        File archivo=null;
+        FileWriter fw = null;
+        BufferedWriter bw = null;
+        for (int i = 0; i < pel_favs.size(); i++) {
+            r+=pel_favs.get(i)+",";
+        }
+        for (int i = 0; i < ser_favs.size(); i++) {
+            fd+=ser_favs.get(i)+",";
+        }
+        try {
+            archivo= new File("./info_usuarios.txt");
+            fw = new FileWriter(archivo, false);
+            bw = new BufferedWriter(fw);
+            for (usuario t : lista) {
+                bw.write(t.getCorreo() + ";");
+                bw.write(t.getContra() + ";");
+                bw.write(r);
+                bw.write(fd);
+                
+            }
+            
+            bw.flush();
+        } catch (Exception ex) {
+        }
+        bw.close();
+        fw.close();
+    }
     public void mod_pelis(int e,ArrayList<String> v3,String categoria,ArrayList<String>v2,String director,String duracion,String id,ArrayList<String>v,String nombre,String productor,int t,ArrayList<String>v1 ){
         a_peliculas.get(e).setActores(v3);
         a_peliculas.get(e).setCategoria(categoria);
@@ -102,6 +141,7 @@ public class principal extends javax.swing.JFrame {
         a_series.get(e).setNum_temps(t2);
         a_series.get(e).setSubtitulos(v1);
     }
+    
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -230,6 +270,7 @@ public class principal extends javax.swing.JFrame {
         jLabel49 = new javax.swing.JLabel();
         jButton5 = new javax.swing.JButton();
         jButton6 = new javax.swing.JButton();
+        jButton15 = new javax.swing.JButton();
         mod_peliculas = new javax.swing.JDialog();
         jLabel52 = new javax.swing.JLabel();
         pe_id1 = new javax.swing.JTextField();
@@ -1060,6 +1101,13 @@ public class principal extends javax.swing.JFrame {
             }
         });
 
+        jButton15.setText("txt");
+        jButton15.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jButton15MouseClicked(evt);
+            }
+        });
+
         javax.swing.GroupLayout principalLayout = new javax.swing.GroupLayout(principal.getContentPane());
         principal.getContentPane().setLayout(principalLayout);
         principalLayout.setHorizontalGroup(
@@ -1083,7 +1131,9 @@ public class principal extends javax.swing.JFrame {
                 .addComponent(jScrollPane4, javax.swing.GroupLayout.PREFERRED_SIZE, 232, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(76, 76, 76))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, principalLayout.createSequentialGroup()
-                .addGap(199, 199, 199)
+                .addGap(46, 46, 46)
+                .addComponent(jButton15)
+                .addGap(66, 66, 66)
                 .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 252, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
@@ -1103,7 +1153,9 @@ public class principal extends javax.swing.JFrame {
                     .addComponent(jButton5)
                     .addComponent(jButton6))
                 .addGap(46, 46, 46)
-                .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGroup(principalLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jScrollPane5, javax.swing.GroupLayout.PREFERRED_SIZE, 256, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jButton15))
                 .addGap(33, 33, 33))
         );
 
@@ -1452,18 +1504,8 @@ public class principal extends javax.swing.JFrame {
     private void re_guardarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_re_guardarMouseClicked
         //String correo, String contra, String fecha, ArrayList<String> peliculas, ArrayList<String> series_fav, int tarjeta
 
-        admin_users ap = new admin_users("./Usuarios.txt");
-        ArrayList<String> pels = new ArrayList();
-        ArrayList<String> series = new ArrayList();
-        String tokens[] = re_pelix.getText().split(",");
-        String tokens2[] = re_series.getText().split(",");
-        int ents = Integer.valueOf(re_tarjeta.getText());
-        for (int i = 0; i < tokens.length; i++) {
-            pels.add(tokens[i]);
-        }
-        for (int i = 0; i < tokens2.length; i++) {
-            series.add(tokens2[i]);
-        }
+        /*admin_users ap = new admin_users("./Usuarios.txt");
+        
         usuario p = new usuario(re_correo.getText(), re_contra.getText(), re_fecha.getText(), pels, series, ents);
         ap.cargarArchivo();
         ap.setpersonas(p);
@@ -1472,6 +1514,7 @@ public class principal extends javax.swing.JFrame {
         } catch (IOException ex) {
             Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
         }
+        */
         //String correo, String contra, String fecha, ArrayList<String> peliculas, ArrayList<String> series_fav, int tarjeta
         String correo, contra, fecha, peliculas, series_fav;
         int tarj;
@@ -1485,14 +1528,27 @@ public class principal extends javax.swing.JFrame {
             aux = 0;
         }
         if (aux == 1) {
-            lista.add(new usuario(re_correo.getText(), re_contra.getText(), re_fecha.getText(), pels, series, ents));
+        pels22 = new ArrayList();
+        series = new ArrayList();
+        String tokens[] = re_pelix.getText().split(",");
+        String tokens2[] = re_series.getText().split(",");
+        ents34 = Integer.valueOf(re_tarjeta.getText());
+        for (int i = 0; i < tokens.length; i++) {
+            pels.add(tokens[i]);
+        }
+        for (int i = 0; i < tokens2.length; i++) {
+            series.add(tokens2[i]);
+        }
+            lista.add(new usuario(re_correo.getText(), re_contra.getText(), re_fecha.getText(), pels, series, ents34));
             JOptionPane.showMessageDialog(this, "El usuario se registro correctamente");
+            cont++;
             re_correo.setText("");
             re_contra.setText("");
             re_fecha.setText("");
             re_pelix.setText("");
             re_series.setText("");
             re_tarjeta.setText("");
+            //ap.setpersonas(new usuario(re_correo.getText(), re_contra.getText(), re_fecha.getText(), pels, series, ents));
             registrar.dispose();
         } else {
             JOptionPane.showMessageDialog(this, "El usuario ya esta registrado");
@@ -1669,21 +1725,22 @@ public class principal extends javax.swing.JFrame {
 
     private void jButton5MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton5MouseClicked
         if (jl_peliculas.getSelectedIndex() >= 0) {
-            DefaultTreeModel modeloARBOL = (DefaultTreeModel) jt_favs.getModel();
-            DefaultMutableTreeNode raiz = (DefaultMutableTreeNode) modeloARBOL.getRoot();
-            DefaultListModel modeloLISTA = (DefaultListModel) jl_peliculas.getModel();
+            DefaultTreeModel modeloARBOL1 = (DefaultTreeModel) jt_favs.getModel();
+            DefaultMutableTreeNode raiz1 = (DefaultMutableTreeNode) modeloARBOL1.getRoot();
+            DefaultListModel modeloLISTA2 = (DefaultListModel) jl_peliculas.getModel();
             String categoria;
             String ID;
             String nombre;
-            categoria = ((peliculas) modeloLISTA.getElementAt(jl_peliculas.getSelectedIndex())).getCategoria();
-            ID = ((peliculas) modeloLISTA.getElementAt(jl_peliculas.getSelectedIndex())).getId();
-            nombre = ((peliculas) modeloLISTA.getElementAt(jl_peliculas.getSelectedIndex())).getNombre();
+            categoria = ((peliculas) modeloLISTA2.getElementAt(jl_peliculas.getSelectedIndex())).getCategoria();
+            ID = ((peliculas) modeloLISTA2.getElementAt(jl_peliculas.getSelectedIndex())).getId();
+            nombre = ((peliculas) modeloLISTA2.getElementAt(jl_peliculas.getSelectedIndex())).getNombre();
             int centinela = -1;
-            for (int i = 0; i < raiz.getChildCount(); i++) {
-                if (raiz.getChildAt(i).toString().equals(categoria)) {
+            for (int i = 0; i < raiz1.getChildCount(); i++) {
+                if (raiz1.getChildAt(i).toString().equals(categoria)) {
+                    pel_favs.add(raiz1.getChildAt(i).toString());
                     DefaultMutableTreeNode p = new DefaultMutableTreeNode(
                             new peliculas(ID, nombre, categoria));
-                    ((DefaultMutableTreeNode) raiz.getChildAt(i)).add(p);
+                    ((DefaultMutableTreeNode) raiz1.getChildAt(i)).add(p);
                     centinela = 1;
                 }
             }
@@ -1691,9 +1748,9 @@ public class principal extends javax.swing.JFrame {
                 DefaultMutableTreeNode n = new DefaultMutableTreeNode(categoria);
                 DefaultMutableTreeNode p = new DefaultMutableTreeNode(new peliculas(ID, nombre, categoria));
                 n.add(p);
-                raiz.add(n);
+                raiz1.add(n);
             }
-            modeloARBOL.reload();
+            modeloARBOL1.reload();
         } else {
             JOptionPane.showMessageDialog(this, "No hay personas seleccionadas");
         }
@@ -1714,6 +1771,7 @@ public class principal extends javax.swing.JFrame {
             int centinela = -1;
             for (int i = 0; i < raiz2.getChildCount(); i++) {
                 if (raiz2.getChildAt(i).toString().equals(categoria)) {
+                    ser_favs.add(raiz2.getChildAt(i).toString());
                     DefaultMutableTreeNode p = new DefaultMutableTreeNode(
                             new series(ID, nombre, categoria));
                     ((DefaultMutableTreeNode) raiz2.getChildAt(i)).add(p);
@@ -1727,6 +1785,7 @@ public class principal extends javax.swing.JFrame {
                 raiz2.add(p);
             }
             modeloARBOL2.reload();
+            //System.out.println(ser_favs);
         } else {
             JOptionPane.showMessageDialog(this, "No hay personas seleccionadas");
         }
@@ -1901,6 +1960,17 @@ public class principal extends javax.swing.JFrame {
        mod_series.dispose();
     }//GEN-LAST:event_jButton14MouseClicked
 
+    private void jButton15MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jButton15MouseClicked
+        System.out.println(r);
+        try {
+            // TODO add your handling code here:
+            escribirarchivo();
+        } catch (IOException ex) {
+            Logger.getLogger(principal.class.getName()).log(Level.SEVERE, null, ex);
+        }
+       
+    }//GEN-LAST:event_jButton15MouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -1949,6 +2019,7 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JButton jButton12;
     private javax.swing.JButton jButton13;
     private javax.swing.JButton jButton14;
+    private javax.swing.JButton jButton15;
     private javax.swing.JButton jButton2;
     private javax.swing.JButton jButton3;
     private javax.swing.JButton jButton4;
@@ -2123,5 +2194,6 @@ public class principal extends javax.swing.JFrame {
     private javax.swing.JList<String> ta_va2;
     // End of variables declaration//GEN-END:variables
 ArrayList<usuario> lista = new ArrayList();
-
+ArrayList<String> pel_favs=new ArrayList();
+ArrayList<String> ser_favs=new ArrayList();
 }
